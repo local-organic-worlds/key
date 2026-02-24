@@ -19,6 +19,61 @@
                 overflow-x: hidden;
             }
 
+            .input-container {
+                position: fixed;
+                z-index: 9999; /* Force this to the very front */
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 600px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 15px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px); /* Modern frosted glass effect */
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            #myThought {
+                width: 100%;
+                height: 80px; /* Gives plenty of room to type */
+                background: transparent;
+                border: none;
+                color: white;
+                font-family: 'Inter', sans-serif;
+                font-size: 16px;
+                resize: none; /* Prevents user from messing up the layout */
+                outline: none;
+                padding: 5px;
+            }
+
+            #castBtn {
+                background: white;
+                color: black;
+                border: none;
+                padding: 12px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+
+            #castBtn:hover {
+                background: #ff4d4d; /* That TWEWY red */
+                color: white;
+                transform: translateY(-2px);
+            }
+
+            #castBtn:active {
+                transform: translateY(0);
+            }
+
             #thought-field {
                 position: relative;
                 height: 70vh;
@@ -34,6 +89,8 @@
                 box-shadow: 8px 8px 0px var(--text);
                 max-width: 250px;
                 animation: drift 6s ease-in-out infinite alternate;
+                /* Ensure the bubbles are behind the input */
+                z-index: 1;
             }
 
             .author-tag {
@@ -52,8 +109,12 @@
     </head>
 <body>
   <h1>LOW-KEY: The Scan</h1>
-  <input id="myThought" placeholder="Cast a thought..." />
-  <button onclick="cast()">Cast</button>
+
+  <div class="input-container">
+    <textarea id="myThought" placeholder="Cast a thought into the void..."></textarea>
+    <button id="castBtn" onclick="cast()">CAST</button>
+  </div>
+
   <div>Note: There is a rate-limit of 5 messages every 10 seconds. See the README at <a href="https://github.com/local-organic-worlds/key" target="_blank">https://github.com/local-organic-worlds/key</a> for more details on how this app works.</div>
   
   <div id="world">
@@ -119,7 +180,7 @@
     function cast() {
 
         const text = document.getElementById('myThought').value;
-        
+
         const category = categorizeThought(text);
 
         if (category === "trash") {
