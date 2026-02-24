@@ -49,6 +49,7 @@
   <h1>LOW-KEY: The Scan</h1>
   <input id="myThought" placeholder="Cast a thought..." />
   <button onclick="cast()">Cast</button>
+  <div>Note: There is a rate-limit of 5 messages every 10 seconds</div>
   
   <div id="world">
     <div id="thought-field"></div>
@@ -102,6 +103,10 @@
             tile.style.transition = 'opacity 2s';
             setTimeout(() => tile.remove(), 2000);
         }, 60000);
+    });
+
+    socket.on('error-msg', (msg) => {
+        alert(msg)
     });
 
     socket.on('user-left', (id) => {
