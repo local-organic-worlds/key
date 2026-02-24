@@ -95,8 +95,8 @@ function displayNewThought(data: any) {
     tile.style.color = data.color
     
     tile.innerHTML = `
-        <div class="author-tag">${data.key}</div>
-        <div class="thought-text">${data.thought}</div>
+        <div class="author-tag">${escapeHTML(data.key)}</div>
+        <div class="thought-text">${escapeHTML(data.thought)}</div>
     `;
     
     field!.appendChild(tile);
@@ -107,6 +107,12 @@ function displayNewThought(data: any) {
         tile.style.transition = 'opacity 2s';
         setTimeout(() => tile.remove(), 2000);
     }, 60000);
+}
+
+function escapeHTML(str: string): string {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
 }
 
 displayNewThought({key: "Welcome Bot", thought: "Hello World! Welcome to the LOW-KEY World!", color: "black"})
