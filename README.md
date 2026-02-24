@@ -5,6 +5,8 @@
 - This repository contains the frontend "Key"—the lens through which you view your local world. LOW-KEY is a social experiment in Spatial Discovery. It doesn't care who you are; it only cares where you are.
 - LOW-KEY stands for "Local Organic Worlds: Key to Discovery".
 
+![LOW-KEY in the Wild](./assets/use-case.png)
+
 ---
 
 ## 👁️ The Philosophy
