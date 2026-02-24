@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>LOW-KEY: The Scan</h1>
+  <input id="myThought" placeholder="Cast a thought..." />
+  <button onclick="cast()">Cast</button>
+  
+  <div id="world">
+    </div>
+
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    const socket = io('https://switchboard-production-04b2.up.railway.app');
+    const world = document.getElementById('world');
+
+    function cast() {
+      const text = document.getElementById('myThought').value;
+      socket.emit('broadcast-thought', { thought: text, key: "Silent-Jasmine-" + Math.floor(Math.random()*100) });
+    }
+
+    socket.on('new-thought', (data) => {
+      let tile = document.getElementById(data.id);
+      if (!tile) {
+        tile = document.createElement('div');
+        tile.id = data.id;
+        world.appendChild(tile);
+      }
+      tile.innerHTML = `<strong>${data.key}:</strong> ${data.thought}`;
+    });
+
+    socket.on('user-left', (id) => {
+      const tile = document.getElementById(id);
+      if (tile) tile.remove(); // The "Dissolve" effect
+    });
+  </script>
+</body>
+</html>
