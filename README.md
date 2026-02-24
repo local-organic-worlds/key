@@ -10,7 +10,7 @@
 ---
 
 ## 👁️ The Philosophy
-Our infrastructure is built on three unbreakable pillars. We call it The Organic Protocol.
+Our infrastructure is built on three pillars. We call it The Organic Protocol.
 
 ### 📡 01. ORGANIC
 
@@ -44,9 +44,11 @@ We’ve stripped away the "Institutional Gaze" of the modern web.
 
 - No Accounts: You are assigned a temporary persona.
 
-- No Logs: We don't track your movement or your identity.
+- No Permanent Logs: We don't track your movement or your identity.
 
 - No History: There is no "Profile" to curate. You exist only in the now.
+
+- *Data Policy: We do not collect names or emails. To maintain network stability and enforce rate limits, our server temporarily sees your IP address and a session ID. This data is used solely for the "Scan" and is not sold, shared, or archived long-term.*
 
 ---
 
