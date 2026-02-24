@@ -36,7 +36,7 @@ Data shouldn't outlive its relevance.
 
 - We have no database. Once a thought is gone, it is deleted from the universe's RAM forever.
 
-👤 03. PRIVATE
+### 👤 03. PRIVATE
 
 **No Trace. No Gaze.**
 
