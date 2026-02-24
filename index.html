@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="icons/icon-192.png">
+        <title>LOW-KEY</title>
         <style>
             :root {
                 --bg-color: #fdf6e3;
@@ -49,7 +54,7 @@
   <h1>LOW-KEY: The Scan</h1>
   <input id="myThought" placeholder="Cast a thought..." />
   <button onclick="cast()">Cast</button>
-  <div>Note: There is a rate-limit of 5 messages every 10 seconds</div>
+  <div>Note: There is a rate-limit of 5 messages every 10 seconds. See the README at <a href="https://github.com/local-organic-worlds/key" target="_blank">https://github.com/local-organic-worlds/key</a> for more details on how this app works.</div>
   
   <div id="world">
     <div id="thought-field"></div>
