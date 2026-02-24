@@ -1,4 +1,4 @@
-# 🗝️ Project LOW-KEY: The Access Key
+# 🗝️ Project LOW-KEY: Discover Local Organic Worlds
 
 > "The city is talking. Are you scanning?"
 
@@ -88,3 +88,5 @@ cd key
 # Run a local server
 python -m http.server 7788
 ```
+
+![LOW-KEY Poster](./assets/low_key_discovery_flyer_2_dist.png)
