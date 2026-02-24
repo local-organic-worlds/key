@@ -59,7 +59,8 @@ export const colorMap = {
     informative: "#3498db", // Blue
     playful: "#f1c40f", // Yellow
     distressed: "#e67e22", // Orange
-    trash: "#95a5a6" // ??
+    trash: "#95a5a6", // ??
+    unknown: "black"
 } as const;
 
 // This creates the union type: "informative" | "playful" | "distressed" | "trash"
@@ -78,8 +79,6 @@ function cast() {
 
     socket.emit('broadcast-thought', { thought: text, key: myPersona, color: colorMap[category] as string });
 }
-
-(window as any).cast = cast
 
 function displayNewThought(data: any) {
     
@@ -123,4 +122,13 @@ socket.on('error-msg', (msg: string) => {
 socket.on('user-left', (id: string) => {
     const tile = document.getElementById(id);
     if (tile) tile.remove(); // The "Dissolve" effect
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const castBtn = document.getElementById('castBtn');
+    const input = document.getElementById('myThought');
+
+    if (castBtn) {
+        castBtn.addEventListener('click', cast);
+    }
 });
