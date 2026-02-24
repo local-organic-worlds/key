@@ -1,6 +1,6 @@
 {
     "short_name": "LOW-KEY",
-    "name": "Project LOW-KEY: Access Key",
+    "name": "Project LOW-KEY: Discover the World",
     "icons": [
         {
             "src": "icons/icon-48x48.png",
@@ -58,5 +58,5 @@
     "display": "standalone",
     "scope": "/key/",
     "theme_color": "#ff4d4d",
-    "description": "Stateless signaling relay for Local Organic Worlds."
+    "description": "Key to Discovering Local Organic Worlds."
   }
