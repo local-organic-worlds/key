@@ -55,7 +55,9 @@ html, body {
 .scan-interface {
     display: grid;
     grid-template-rows: auto 1fr auto; /* Header, World (expandable), Footer */
-    height: 100vh;
+    height: 100dvh; /* Use dynamic units! */
+    width: 100%;
+    overflow: hidden; /* Prevents the 'pinch' bounce */
 }
 
 .ui-header {
