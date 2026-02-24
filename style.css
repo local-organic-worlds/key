@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box; /* This ensures padding doesn't grow the element */
+}
+
 :root {
     --bg-color: #fdf6e3;
     --accent: #ff4d4d;
