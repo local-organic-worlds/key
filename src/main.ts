@@ -6,8 +6,27 @@ import { categorizeThought, colorMap, ThoughtCategory } from './nbc.js';
 const socket = io('https://switchboard-production-04b2.up.railway.app');
 const world = document.getElementById('world');
 
-const adjectives = ["Crimson", "Vibrant", "Silent", "Hidden", "Neon", "Organic", "Solar", "Digital"];
-const nouns = ["Player", "Echo", "Seeker", "Ghost", "Loom", "World", "Signal", "Key"];
+const adjectives = [
+    // Organic/Biological
+    "Fungal", "Mossy", "Rooted", "Floral", "Lichen", "Spore", "Mycelial", "Verdant",
+    // Digital/Glitch
+    "Static", "Binary", "Null", "Cached", "Encrypted", "Proxy", "Latent", "Bitwise",
+    // Liminal/Vibe
+    "Hollow", "Vivid", "Pale", "Sunken", "Echoing", "Silent", "Blurred", "Faded",
+    // Tech-Obsidian
+    "Carbon", "Basalt", "Quartz", "Glass", "Chrome", "Copper", "Silicon", "Cobalt"
+];
+
+const nouns = [
+    // Nature
+    "Sprout", "Bloom", "Grove", "Thicket", "Canopy", "Petal", "Willow", "Ivy",
+    // Structure
+    "Node", "Cell", "Vessel", "Bridge", "Tower", "Vault", "Harbor", "Gate",
+    // Entity
+    "Agent", "Drifter", "Ghost", "Watcher", "Signal", "Vector", "Pulse", "Wanderer",
+    // The "Key" Theme
+    "Socket", "Protocol", "Scan", "Cortex", "Archive", "Memory", "Frame", "Logic"
+];
 
 const generateName = () => {
     const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
