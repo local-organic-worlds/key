@@ -1,0 +1,21 @@
+name: Deploy PWA
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Install and Build 🏗️
+        run: |
+          npm install
+          npx tsc
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # Deploy the root (which now contains dist/ thanks to tsc)
+          branch: gh-pages # This creates a separate branch for the live site
