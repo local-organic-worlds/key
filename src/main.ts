@@ -139,4 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (castBtn) {
         castBtn.addEventListener('click', cast);
     }
+    const userNameEl = document.getElementById('userName');
+
+    if (userNameEl) {
+        userNameEl.textContent = myPersona
+    }
 });

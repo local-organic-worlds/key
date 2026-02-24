@@ -72,6 +72,27 @@ html, body {
     text-transform: uppercase;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .user-info {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Courier New', Courier, monospace; /* Terminal vibe */
+  }
+  
+  .highlight {
+    color: #00ffcc; /* Cyber-mint or your choice of accent */
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+  }
+
 #world {
     position: relative; /* Essential for absolute-positioned bubbles */
     overflow: hidden; 
