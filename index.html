@@ -83,7 +83,7 @@
       socket.emit('broadcast-thought', { thought: text, key: myPersona });
     }
 
-    socket.on('new-thought', (data) => {
+    function displayNewThought(data) {
         const field = document.getElementById('thought-field');
         const tile = document.createElement('div');
         tile.className = 'thought-tile';
@@ -108,6 +108,12 @@
             tile.style.transition = 'opacity 2s';
             setTimeout(() => tile.remove(), 2000);
         }, 60000);
+    }
+
+    displayNewThought({key: "Welcome Bot", thought: "Hello World! Welcome to the LOW-KEY World!"})
+
+    socket.on('new-thought', (data) => {
+        displayNewThought(data)
     });
 
     socket.on('error-msg', (msg) => {
