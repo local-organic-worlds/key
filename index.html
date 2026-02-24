@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            :root {
+                --bg-color: #fdf6e3;
+                --accent: #ff4d4d;
+                --text: #2c3e50;
+            }
+
+            body {
+                background-color: var(--bg-color);
+                font-family: 'Inter', sans-serif;
+                overflow-x: hidden;
+            }
+
+            #thought-field {
+                position: relative;
+                height: 70vh;
+                padding: 20px;
+            }
+
+            .thought-tile {
+                background: white;
+                padding: 15px 20px;
+                border: 3px solid var(--text);
+                border-radius: 15px; /* Change to 0 for a sharper TWEWY look */
+                position: absolute;
+                box-shadow: 8px 8px 0px var(--text);
+                max-width: 250px;
+                animation: drift 6s ease-in-out infinite alternate;
+            }
+
+            .author-tag {
+                font-size: 0.7rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 5px;
+            }
+
+            @keyframes drift {
+                from { transform: translateY(0px) rotate(-1deg); }
+                to { transform: translateY(-15px) rotate(1deg); }
+            }
+        </style>
+    </head>
 <body>
   <h1>LOW-KEY: The Scan</h1>
   <input id="myThought" placeholder="Cast a thought..." />
   <button onclick="cast()">Cast</button>
   
   <div id="world">
+    <div id="thought-field"></div>
     </div>
 
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
@@ -13,19 +59,49 @@
     const socket = io('https://switchboard-production-04b2.up.railway.app');
     const world = document.getElementById('world');
 
+    const adjectives = ["Crimson", "Vibrant", "Silent", "Hidden", "Neon", "Organic", "Solar", "Digital"];
+    const nouns = ["Player", "Echo", "Seeker", "Ghost", "Loom", "World", "Signal", "Key"];
+
+    const generateName = () => {
+        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const noun = nouns[Math.floor(Math.random() * nouns.length)];
+        const num = Math.floor(100 + Math.random() * 899); // 3-digit suffix
+        return `${adj} ${noun} ${num}`;
+    };
+
+    const myPersona = generateName();
+    console.log(`Scanning as: ${myPersona}`);
+
     function cast() {
       const text = document.getElementById('myThought').value;
-      socket.emit('broadcast-thought', { thought: text, key: "Silent-Jasmine-" + Math.floor(Math.random()*100) });
+      socket.emit('broadcast-thought', { thought: text, key: myPersona });
     }
 
     socket.on('new-thought', (data) => {
-      let tile = document.getElementById(data.id);
-      if (!tile) {
-        tile = document.createElement('div');
-        tile.id = data.id;
-        world.appendChild(tile);
-      }
-      tile.innerHTML = `<strong>${data.key}:</strong> ${data.thought}`;
+        const field = document.getElementById('thought-field');
+        const tile = document.createElement('div');
+        tile.className = 'thought-tile';
+        
+        // Randomize position so they float around the screen
+        const x = Math.random() * (window.innerWidth - 200);
+        const y = Math.random() * (window.innerHeight - 300);
+        
+        tile.style.left = `${x}px`;
+        tile.style.top = `${y}px`;
+        
+        tile.innerHTML = `
+            <div class="author-tag">${data.key}</div>
+            <div class="thought-text">${data.thought}</div>
+        `;
+        
+        field.appendChild(tile);
+
+        // Guerilla Feature: Thoughts dissolve after 60 seconds
+        setTimeout(() => {
+            tile.style.opacity = '0';
+            tile.style.transition = 'opacity 2s';
+            setTimeout(() => tile.remove(), 2000);
+        }, 60000);
     });
 
     socket.on('user-left', (id) => {
