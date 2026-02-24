@@ -85,6 +85,8 @@ Bash
 ```
 git clone https://github.com/local-organic-worlds/key.git
 cd key
+# Run this in a separate tab:
+npx tsc --watch
 # Run a local server
 python -m http.server 7788
 ```
