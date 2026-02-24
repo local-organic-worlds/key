@@ -48,7 +48,7 @@ We’ve stripped away the "Institutional Gaze" of the modern web.
 
 - No History: There is no "Profile" to curate. You exist only in the now.
 
-- *Data Policy: We do not collect names or emails. To maintain network stability and enforce rate limits, our server temporarily sees your IP address and a session ID. This data is used solely for the "Scan" and is not sold, shared, or archived long-term.*
+- *Data Policy: We do not collect names or emails. To maintain network stability and enforce rate limits, our server temporarily sees your IP address and a session ID. This data is used solely for the "Scan" and is not sold, shared, or archived long-term. The hashed IP address is temporarily logged to Railway's temporary application logs which are cleared after a set period of time.*
 
 ---
 
