@@ -1,0 +1,169 @@
+:root {
+    --bg-color: #fdf6e3;
+    --accent: #ff4d4d;
+    --text: #2c3e50;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.input-container {
+    position: fixed;
+    z-index: 9999; /* Force this to the very front */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px); /* Modern frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#myThought {
+    width: 100%;
+    height: 80px; /* Gives plenty of room to type */
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    resize: none; /* Prevents user from messing up the layout */
+    outline: none;
+    padding: 5px;
+}
+
+#castBtn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#castBtn:hover {
+    background: #ff4d4d; /* That TWEWY red */
+    color: white;
+    transform: translateY(-2px);
+}
+
+#castBtn:active {
+    transform: translateY(0);
+}
+
+#thought-field {
+    position: relative;
+    height: 70vh;
+    padding: 20px;
+}
+
+.thought-tile {
+    background: white;
+    padding: 15px 20px;
+    border: 3px solid var(--text);
+    border-radius: 15px; /* Change to 0 for a sharper TWEWY look */
+    position: absolute;
+    box-shadow: 8px 8px 0px var(--text);
+    max-width: 250px;
+    animation: drift 6s ease-in-out infinite alternate;
+    /* Ensure the bubbles are behind the input */
+    z-index: 1;
+}
+
+.author-tag {
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 5px;
+}
+
+@keyframes drift {
+    from { transform: translateY(0px) rotate(-1deg); }
+    to { transform: translateY(-15px) rotate(1deg); }
+}
+
+/* Ensure the screen doesn't bounce or scroll the whole page */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background-color: #0a0a0a;
+    color: #fff;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.scan-interface {
+    display: grid;
+    grid-template-rows: auto 1fr auto; /* Header, World (expandable), Footer */
+    height: 100vh;
+}
+
+.ui-header {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.ui-header h1 {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+#world {
+    position: relative; /* Essential for absolute-positioned bubbles */
+    overflow: hidden; 
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.input-container {
+    padding: 20px;
+    background: #000;
+    display: grid;
+    grid-template-columns: 1fr 100px; /* Textarea takes most space, button is fixed */
+    gap: 15px;
+    border-top: 1px solid #333;
+}
+
+#myThought {
+    background: #111;
+    border: 1px solid #333;
+    color: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    resize: none;
+    height: 50px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#myThought:focus {
+    border-color: #ff4d4d;
+}
+
+#castBtn {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+}
