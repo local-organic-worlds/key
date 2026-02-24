@@ -81,14 +81,16 @@ function cast() {
 }
 
 function displayNewThought(data: any) {
-    
+    const world = document.getElementById('world');
+    if (!world) return;
+
     const field = document.getElementById('thought-field');
     const tile = document.createElement('div');
     tile.className = 'thought-tile';
     
-    // Randomize position so they float around the screen
-    const x = Math.random() * (window.innerWidth - 200);
-    const y = Math.random() * (window.innerHeight - 300);
+    // Randomly place within the bounds of the #world div
+    const x = Math.random() * (world.clientWidth - 150);
+    const y = Math.random() * (world.clientHeight - 50);
     
     tile.style.left = `${x}px`;
     tile.style.top = `${y}px`;

@@ -10,16 +10,6 @@ body {
     overflow-x: hidden;
 }
 
-#castBtn:hover {
-    background: #ff4d4d; /* That TWEWY red */
-    color: white;
-    transform: translateY(-2px);
-}
-
-#castBtn:active {
-    transform: translateY(0);
-}
-
 #thought-field {
     position: relative;
     height: 70vh;
@@ -121,4 +111,14 @@ html, body {
     font-weight: 900;
     cursor: pointer;
     text-transform: uppercase;
+}
+
+#castBtn:hover {
+    background: #ff4d4d; /* That TWEWY red */
+    color: white;
+    transform: translateY(-2px);
+}
+
+#castBtn:active {
+    transform: translateY(0);
 }
