@@ -98,7 +98,7 @@ setTimeout(() => {
         thought: "You are here. No accounts, no history, just this moment.", 
         color: "#00ffcc" 
     })
-}, 2000);
+}, 3500);
 
 setTimeout(() => {
     displayNewThought({
@@ -106,7 +106,7 @@ setTimeout(() => {
         thought: "Cast your thoughts. They live only 60 seconds. Username changes on refresh.", 
         color: "#ff006e" 
     })
-}, 4500);
+}, 7000);
 
 setTimeout(() => {
     displayNewThought({
@@ -114,7 +114,7 @@ setTimeout(() => {
         thought: "See what the room is thinking. Ping someone if you're game.", 
         color: "#ffbc42" 
     })
-}, 7000);
+}, 10500);
 
 setTimeout(() => {
     displayNewThought({
@@ -122,7 +122,7 @@ setTimeout(() => {
         thought: "For more information, check out the link above!", 
         color: "#00ffcc" 
     })
-}, 10000);
+}, 14000);
 
 socket.on('new-thought', (data: any) => {
     displayNewThought(data)
