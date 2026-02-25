@@ -92,6 +92,38 @@ function escapeHTML(str: string): string {
 
 displayNewThought({key: "Welcome Bot", thought: "Hello World! Welcome to the LOW-KEY World!", color: "black"})
 
+setTimeout(() => {
+    displayNewThought({
+        key: "Protocol", 
+        thought: "You are here. No accounts, no history, just this moment.", 
+        color: "#00ffcc" 
+    })
+}, 2000);
+
+setTimeout(() => {
+    displayNewThought({
+        key: "The Void", 
+        thought: "Cast your thoughts. They live only 60 seconds. Username changes on refresh.", 
+        color: "#ff006e" 
+    })
+}, 4500);
+
+setTimeout(() => {
+    displayNewThought({
+        key: "Discovery", 
+        thought: "See what the room is thinking. Ping someone if you're game.", 
+        color: "#ffbc42" 
+    })
+}, 7000);
+
+setTimeout(() => {
+    displayNewThought({
+        key: "Protocol", 
+        thought: "For more information, check out the link above!", 
+        color: "#00ffcc" 
+    })
+}, 10000);
+
 socket.on('new-thought', (data: any) => {
     displayNewThought(data)
 });
