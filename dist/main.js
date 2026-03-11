@@ -1,38 +1,28 @@
 // @ts-ignore
-import winkNaiveBayesTextClassifier from 'https://cdn.skypack.dev/wink-naive-bayes-text-classifier?dts';
-// @ts-ignore
 import { io } from 'https://cdn.socket.io/4.7.2/socket.io.esm.min.js';
-const nbc = winkNaiveBayesTextClassifier();
-// Define simple text prep (no separate NLP library needed for basics)
-nbc.definePrepTasks([
-    (text) => text.toLowerCase().split(/\W+/).filter(Boolean)
-]);
-nbc.defineConfig({ smoothingFactor: 0.5 });
-// 1. Training - Feed it 5-10 examples per quadrant
-nbc.learn("How do I find the library basement?", "informative");
-nbc.learn("The exam is on Tuesday at 4pm", "informative");
-nbc.learn("Does anyone know where building 4 is?", "informative");
-nbc.learn("haha that is so funny lol", "playful");
-nbc.learn("anyone want to grab coffee? :P", "playful");
-nbc.learn("vibing in the lounge right now", "playful");
-nbc.learn("I am so overwhelmed with this project", "distressed");
-nbc.learn("I feel like I'm going to fail everything", "distressed");
-nbc.learn("everything is falling apart honestly", "distressed");
-nbc.learn("BUY CHEAP BITCOIN NOW !!!", "trash");
-nbc.learn("you are a total idiot and i hate you", "trash");
-nbc.learn("click this link for free prizes", "trash");
-// Consolidate the training
-nbc.consolidate();
-// 2. The Categorizer Function
-const categorizeThought = (text) => {
-    const category = nbc.predict(text);
-    console.log(`Categorised "${text}" as category: ${category}`);
-    return category; // Returns the label: "informative", "playful", etc.
-};
+import { categorizeThought, colorMap } from './nbc.js';
 const socket = io('https://switchboard-production-04b2.up.railway.app');
 const world = document.getElementById('world');
-const adjectives = ["Crimson", "Vibrant", "Silent", "Hidden", "Neon", "Organic", "Solar", "Digital"];
-const nouns = ["Player", "Echo", "Seeker", "Ghost", "Loom", "World", "Signal", "Key"];
+const adjectives = [
+    // Organic/Biological
+    "Fungal", "Mossy", "Rooted", "Floral", "Lichen", "Spore", "Mycelial", "Verdant",
+    // Digital/Glitch
+    "Static", "Binary", "Null", "Cached", "Encrypted", "Proxy", "Latent", "Bitwise",
+    // Liminal/Vibe
+    "Hollow", "Vivid", "Pale", "Sunken", "Echoing", "Silent", "Blurred", "Faded",
+    // Tech-Obsidian
+    "Carbon", "Basalt", "Quartz", "Glass", "Chrome", "Copper", "Silicon", "Cobalt"
+];
+const nouns = [
+    // Nature
+    "Sprout", "Bloom", "Grove", "Thicket", "Canopy", "Petal", "Willow", "Ivy",
+    // Structure
+    "Node", "Cell", "Vessel", "Bridge", "Tower", "Vault", "Harbor", "Gate",
+    // Entity
+    "Agent", "Drifter", "Ghost", "Watcher", "Signal", "Vector", "Pulse", "Wanderer",
+    // The "Key" Theme
+    "Socket", "Protocol", "Scan", "Cortex", "Archive", "Memory", "Frame", "Logic"
+];
 const generateName = () => {
     const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
     const noun = nouns[Math.floor(Math.random() * nouns.length)];
@@ -41,13 +31,6 @@ const generateName = () => {
 };
 const myPersona = generateName();
 console.log(`Scanning as: ${myPersona}`);
-export const colorMap = {
-    informative: "#3498db", // Blue
-    playful: "#f1c40f", // Yellow
-    distressed: "#e67e22", // Orange
-    trash: "#95a5a6", // ??
-    unknown: "black"
-};
 function cast() {
     const text = document.getElementById('myThought').value;
     const category = categorizeThought(text);
@@ -58,18 +41,21 @@ function cast() {
     socket.emit('broadcast-thought', { thought: text, key: myPersona, color: colorMap[category] });
 }
 function displayNewThought(data) {
+    const world = document.getElementById('world');
+    if (!world)
+        return;
     const field = document.getElementById('thought-field');
     const tile = document.createElement('div');
     tile.className = 'thought-tile';
-    // Randomize position so they float around the screen
-    const x = Math.random() * (window.innerWidth - 200);
-    const y = Math.random() * (window.innerHeight - 300);
+    // Randomly place within the bounds of the #world div
+    const x = Math.random() * (world.clientWidth - 150);
+    const y = Math.random() * (world.clientHeight - 50);
     tile.style.left = `${x}px`;
     tile.style.top = `${y}px`;
     tile.style.color = data.color;
     tile.innerHTML = `
-        <div class="author-tag">${data.key}</div>
-        <div class="thought-text">${data.thought}</div>
+        <div class="author-tag">${escapeHTML(data.key)}</div>
+        <div class="thought-text">${escapeHTML(data.thought)}</div>
     `;
     field.appendChild(tile);
     // Guerilla Feature: Thoughts dissolve after 60 seconds
@@ -79,7 +65,40 @@ function displayNewThought(data) {
         setTimeout(() => tile.remove(), 2000);
     }, 60000);
 }
+function escapeHTML(str) {
+    const p = document.createElement('p');
+    p.textContent = str;
+    return p.innerHTML;
+}
 displayNewThought({ key: "Welcome Bot", thought: "Hello World! Welcome to the LOW-KEY World!", color: "black" });
+setTimeout(() => {
+    displayNewThought({
+        key: "Protocol",
+        thought: "You are here. No accounts, no history, just this moment.",
+        color: "#00ffcc"
+    });
+}, 3500);
+setTimeout(() => {
+    displayNewThought({
+        key: "The Void",
+        thought: "Cast your thoughts. They live only 60 seconds. Username changes on refresh.",
+        color: "#ff006e"
+    });
+}, 7000);
+setTimeout(() => {
+    displayNewThought({
+        key: "Discovery",
+        thought: "See what the room is thinking. Ping someone if you're game.",
+        color: "#ffbc42"
+    });
+}, 10500);
+setTimeout(() => {
+    displayNewThought({
+        key: "Protocol",
+        thought: "For more information, check out the link above!",
+        color: "#00ffcc"
+    });
+}, 14000);
 socket.on('new-thought', (data) => {
     displayNewThought(data);
 });
@@ -96,5 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('myThought');
     if (castBtn) {
         castBtn.addEventListener('click', cast);
+    }
+    const userNameEl = document.getElementById('userName');
+    if (userNameEl) {
+        userNameEl.textContent = myPersona;
     }
 });
