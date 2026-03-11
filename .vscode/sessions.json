@@ -18,14 +18,12 @@
             [
                 {
                     "name": "npm run watch",
-                    "autoExecuteCommands": true,
                     "commands": [
                         "npm run watch"
                     ]
                 },
                 {
                     "name": "npm run serve",
-                    "autoExecuteCommands": true,
                     "commands": [
                         "npm run serve"
                     ]
